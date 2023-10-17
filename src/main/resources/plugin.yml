@@ -1,4 +1,4 @@
 name: kfc
 version: '${project.version}'
-main: me.orange.kfc.Kfc
+main: me.orange.kfc.KFC
 api-version: '1.20'
