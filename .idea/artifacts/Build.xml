@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Build">
+    <output-path>$USER_HOME$/Downloads</output-path>
+    <root id="archive" name="KFC.jar">
+      <element id="module-output" name="KFC" />
+    </root>
+  </artifact>
+</component>

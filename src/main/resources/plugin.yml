@@ -2,3 +2,6 @@ name: kfc
 version: '${project.version}'
 main: me.orange.kfc.KFC
 api-version: '1.20'
+commands:
+  hireemployee:
+    description: placeholder lmao

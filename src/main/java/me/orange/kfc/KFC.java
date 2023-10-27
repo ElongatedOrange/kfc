@@ -1,6 +1,7 @@
 package me.orange.kfc;
 
 import me.arcaniax.hdb.api.HeadDatabaseAPI;
+import me.orange.kfc.employee.SpawnEmployeeCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class KFC extends JavaPlugin {
@@ -10,6 +11,8 @@ public final class KFC extends JavaPlugin {
     @Override
     public void onEnable() {
         PLUGIN = this;
+
+        getCommand("hireemployee").setExecutor(new SpawnEmployeeCommand());
     }
 
     @Override
