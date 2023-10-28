@@ -69,7 +69,7 @@ public class FoodManager implements Listener {
             player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
         }
 
-        player.playSound(player, Sound., 1, 1);
+        player.playSound(player, Sound.ENTITY_PLAYER_BURP, 1, 1);
 
         // Apply random positive effect
         PotionEffectType[] positiveEffects = {PotionEffectType.REGENERATION, PotionEffectType.INCREASE_DAMAGE,

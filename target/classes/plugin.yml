@@ -1,0 +1,7 @@
+name: kfc
+version: '1.0.0'
+main: me.orange.kfc.KFC
+api-version: '1.20'
+commands:
+  hireemployee:
+    description: placeholder lmao
