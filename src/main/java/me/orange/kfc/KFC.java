@@ -188,6 +188,8 @@ public final class KFC extends JavaPlugin implements Listener {
                         } else {
                             getLogger().info("Delivery NPC does not match order's delivery NPC.");
                             player.sendMessage("This is not the correct delivery point for your order.");
+                            getLogger().info("Interacted NPC ID: " + npc.getId());
+                            getLogger().info("Order's delivery NPC ID: " + order.getDeliveryNPC().getId());
                         }
                     } else {
                         getLogger().info("Player does not have an order.");
