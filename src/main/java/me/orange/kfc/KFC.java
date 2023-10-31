@@ -217,11 +217,11 @@ public final class KFC extends JavaPlugin implements Listener {
         ItemStack randomItem = new ItemStack(items[random.nextInt(items.length)]);
 
         // Fetch a reference to an NPC from Citizens to act as the delivery point
-        Iterator<NPC> npcIterator = CitizensAPI.getNPCRegistry().iterator();
+        NPCRegistry registry = CitizensAPI.getNPCRegistry();
         NPC deliveryNPC = null;
-        while (npcIterator.hasNext()) {
-            NPC npc = npcIterator.next();
-            if (npc.getName().equals(randomDestination)) {
+        for (int id : deliveryNpcIds) {
+            NPC npc = registry.getById(id);
+            if (npc != null && npc.getName().equals(randomDestination)) {
                 deliveryNPC = npc;
                 break;
             }
@@ -233,12 +233,14 @@ public final class KFC extends JavaPlugin implements Listener {
             return null;
         }
 
-        // Assume a fixed points value for simplicity
+        // Remove this
         int pointsValue = 10;
 
         // Create and return a new Order object
+        getLogger().info("Generated order with delivery NPC ID: " + deliveryNPC.getId());
         return new Order(randomDestination, randomItem, pointsValue, deliveryNPC);
     }
+
 
     public void assignOrderToPlayer(Player player, Order order) {
         getLogger().info("playerOrders: " + playerOrders.toString());
