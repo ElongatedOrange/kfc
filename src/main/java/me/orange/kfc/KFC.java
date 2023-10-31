@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -41,6 +42,7 @@ public final class KFC extends JavaPlugin implements Listener {
 
         getCommand("hireemployee").setExecutor(new SpawnEmployeeCommand());
         Bukkit.getPluginManager().registerEvents(this, this);
+        Bukkit.getPluginManager().registerEvents(new FoodManager(), this);
 
         // Schedule a delayed task to execute the NPC creation logic 100 ticks (5 seconds) after server restart
         Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
@@ -207,7 +209,7 @@ public final class KFC extends JavaPlugin implements Listener {
         getLogger().info("generateNewOrder called");
         // Array of possible destinations and items for delivery
         String[] destinations = {"Delivery Point 1", "Delivery Point 2", "Delivery Point 3"};
-        Material[] items = {Material.COOKED_CHICKEN, Material.COOKED_BEEF, Material.COOKED_MUTTON};
+        ItemStack[] items = {FoodManager.chicken_sandwich, FoodManager.fried_chicken, FoodManager.fries, FoodManager.pepsi, FoodManager.seven_up};
 
         // Random object to help in selecting a random destination and item
         Random random = new Random();
@@ -255,14 +257,17 @@ public final class KFC extends JavaPlugin implements Listener {
             player.sendMessage(ChatColor.RED + "You already have an order!");
             getLogger().info("Player already has an order");
         } else {
+            // Get the custom item name from the item's meta data
+            ItemMeta itemMeta = order.getItem().getItemMeta();
+            String itemName = (itemMeta != null && itemMeta.hasDisplayName()) ? itemMeta.getDisplayName() : "item";
+
             // Store the association between the player and the order
             playerOrders.put(player, order);
-            player.sendMessage("You picked up an order for " + order.getDestination() + "!"
-                    + " Deliver " + order.getItem().getType().name().replace('_', ' ').toLowerCase()
-                    + " to " + order.getDestination() + ".");
+            player.sendMessage("You picked up an order!" + " Deliver " + itemName + ChatColor.RESET + " to " + order.getDestination() + ".");
             getLogger().info("Order assigned to player");
         }
     }
+
 
     public Order getCurrentOrderForPlayer(Player player) {
         if (player == null) {
